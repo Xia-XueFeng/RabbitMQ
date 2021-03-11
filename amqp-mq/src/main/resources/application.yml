@@ -1,0 +1,22 @@
+server:
+  port: 8080
+# 消息队列
+spring:
+  rabbitmq:
+    host: 182.92.236.141
+    port: 5672
+    virtual-host: /dev
+    password: password
+    username: admin
+    # 开启confirmCallback，生产者到交换机
+    # 新版，NONE值是禁用发布确认模式，是默认值，CORRELATED值是发布消息成功到交换器后会触发回调方法
+    publisher-confirm-type: correlated
+    # 开启returnCallback配置,交换机到队列
+    publisher-returns: true
+    # 修改交换机投递到队列失败的策略,返回信息给消费者
+    template:
+      mandatory: true
+    # 开启手动确认消息，如果消息重新入队，进行重试
+    listener:
+      simple:
+        acknowledge-mode: manual
